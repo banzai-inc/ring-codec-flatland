@@ -1,4 +1,5 @@
 (ns ring.util.test.codec
+  (:require [flatland.ordered.map :refer [ordered-map]])
   (:use clojure.test
         ring.util.codec)
   (:import java.util.Arrays
@@ -62,7 +63,10 @@
   (is (= (form-decode-str "foo=bar+baz" "UTF-8") "foo=bar baz")))
 
 (deftest test-form-decode-map
-  (are [x y] (= (form-decode-map x) y)
+  (are [x y] (as-> (form-decode-map x) decoded (and (= decoded y) (= (keys decoded) (keys y)))) ; rely on array-map's implicit order retention for this test
+    "0=&1=&2=&3=&4=&5=&6=&7=&8=&9=&10=&11=&12=&13=&14=&15=&16=&17=&18=&19=&20=&21=&22=&23=&24=&25=&26=&27=&28=&29=&30=&31=&32=&33=&34="
+    (reduce #(assoc %1 (str %2) "") (ordered-map) (range 0 35)))
+  (are [x y] (as-> (form-decode-map x) decoded (and (= decoded y) (= (keys decoded) (keys y)))) ; rely on array-map's implicit order retention for these small tests
     "foo"     {"foo" ""}
     "a=b"     {"a" "b"}
     "a=b&c=d" {"a" "b" "c" "d"}

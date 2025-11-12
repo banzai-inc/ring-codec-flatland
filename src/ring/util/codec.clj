@@ -1,6 +1,7 @@
 (ns ring.util.codec
   "Functions for encoding and decoding data."
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [flatland.ordered.map :refer [ordered-map]])
   (:import java.util.Map
            clojure.lang.MapEntry
            java.nio.charset.Charset
@@ -181,7 +182,7 @@
         (if (and k v)
           (assoc-conj m k v)
           m)))
-    {}
+    (ordered-map)
     (tokenized encoded "&"))))
 
 (defn form-decode
