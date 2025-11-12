@@ -1,3 +1,20 @@
+
+A drop-in replacement for `ring/ring-codec` which retains form parameter order with flatland ordered-map.
+
+## Installation
+
+```clojure
+{:deps {
+        ring/ring-codec {:git/url "https://github.com/banzai-inc/ring-codec-flatland.git"
+                         :git/sha "fca70f161f28cd00c24f7154dc9675f3195be1e2"
+                         :git/tag "1.3.0"}
+        ,}}}
+```
+
+This library will not be published as a jar, so the original installation instructions below won't work.
+
+---
+
 # Ring-Codec [![Build Status](https://github.com/ring-clojure/ring-codec/actions/workflows/test.yml/badge.svg)](https://github.com/ring-clojure/ring-codec/actions/workflows/test.yml)
 
 Functions for encoding and decoding data into formats commonly used in
